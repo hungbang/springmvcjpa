@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="dronehire:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="drone-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="dronehire:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,32 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans  xmlns="http://www.springframework.org/schema/beans"-->
+        <!--xmlns="http://www.springframework.org/schema/security"-->
+             <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+             <!--xsi:schemaLocation="-->
+             <!--http://www.springframework.org/schema/beans-->
+       <!--http://www.springframework.org/schema/beans/spring-beans.xsd -->
+    <!--http://www.springframework.org/schema/security-->
+    <!--http://www.springframework.org/schema/security/spring-security-4.0.xsd">-->
+
+    <!--<http use-expressions="true">-->
+        <!--<form-login-->
+                <!--login-page='/user-login'-->
+                <!--authentication-failure-url="/login.html?error=true" />-->
+
+    <!--</http>-->
+    <!--<authentication-manager>-->
+        <!--<authentication-provider>-->
+
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
+
+    <!--<bean id="daoAuthenticationProvider"-->
+          <!--class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">-->
+        <!--<property name="userDetailsService" beans:ref="userDetailService"/>-->
+        <!--<property name="passwordEncoder" beans:ref="passwordEncoder"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">-->
+
+    <!--</bean>-->
+<!--</beans>-->
