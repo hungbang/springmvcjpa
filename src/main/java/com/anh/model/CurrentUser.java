@@ -1,22 +1,59 @@
 package com.anh.model;
 
 import com.anh.entity.UsersEntity;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class CurrentUser extends User {
-    private UsersEntity user;
+import java.util.Collection;
+import java.util.List;
 
-    public CurrentUser(UsersEntity user) {
-        super(user.getEmail(), user.getPassword(), null);
-        this.user = user;
+public class CurrentUser implements UserDetails {
+    private String username;
+    private String password;
+    private List<GrantedAuthority> grantedAuthorities;
+
+    public CurrentUser(String username, String password, List<GrantedAuthority> grantedAuthorities) {
+        this.username = username;
+        this.password = password;
+        this.grantedAuthorities = grantedAuthorities;
     }
 
-    public UsersEntity getUser() {
-        return user;
+    public CurrentUser() {
     }
 
-    public void setUser(UsersEntity user) {
-        this.user = user;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }

@@ -4,11 +4,16 @@ import com.anh.entity.UsersEntity;
 import com.anh.model.CurrentUser;
 import com.anh.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -23,6 +28,11 @@ public class UserDetailService implements UserDetailsService {
         if(usersEntity == null){
             throw new UsernameNotFoundException("User does not exist");
         }
-        return new CurrentUser(usersEntity);
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("Admin");
+        grantedAuthorities.add(simpleGrantedAuthority);
+        CurrentUser currentUser = new CurrentUser(usersEntity.getEmail(), usersEntity.getPassword(), grantedAuthorities);
+
+        return currentUser;
     }
 }
