@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.entity.Users;
 import com.example.exception.UserNotFoundException;
+import com.example.exception.UsernameExistException;
 import com.example.model.RegisterTemp;
 import com.example.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(RegisterTemp tempUser) {
+    public void saveUser(RegisterTemp tempUser) throws UsernameExistException {
         tempUser.setPassword(encoder.encode(tempUser.getPassword()));
         Users user = new Users(tempUser.getUsername(), tempUser.getPassword());
+
+        Users users = usersRepository.findUsersByName(tempUser.getUsername());
+        if(users != null)
+            throw new UsernameExistException("User is exist.");
         user.setAccessToken("");
         user.setCreated("");
         user.setName("");

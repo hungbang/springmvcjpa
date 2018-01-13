@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.entity.Users;
+import com.example.exception.UsernameExistException;
 import com.example.model.RegisterTemp;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,10 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String handleRegister(@Valid @ModelAttribute("user") RegisterTemp registerTemp, BindingResult result) {
+    public String handleRegister(@Valid @ModelAttribute("user") RegisterTemp registerTemp, BindingResult result) throws UsernameExistException {
         if(result.hasErrors()) {
             return "register";
         }
-
         userService.saveUser(registerTemp);
         return "redirect:/login";
     }
