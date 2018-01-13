@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="configEmail:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="configEmail.war">
+      <element id="artifact" artifact-name="configEmail:war exploded" />
+    </root>
+  </artifact>
+</component>
