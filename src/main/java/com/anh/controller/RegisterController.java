@@ -59,7 +59,7 @@ public class RegisterController {
             e.printStackTrace();
         }
 
-        emailService.sendSimpleMessage("anhphan96dn@gmail.com", "confirm", "Your confirm code is: "+random);
+        emailService.sendSimpleMessage(registerParam.getUserName(), "confirm", "Your confirm code is: "+random);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject( "token",token);
