@@ -1,6 +1,9 @@
 package com.anh.entity;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users", schema = "spring-hateoas")
@@ -11,6 +14,7 @@ public class UsersEntity {
     private String email;
     private String name;
     private String password;
+    private boolean isEnable = false;
 
     public UsersEntity(String username, String password){
         this.email = username;
@@ -22,6 +26,7 @@ public class UsersEntity {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -52,6 +57,8 @@ public class UsersEntity {
 
     @Basic
     @Column(name = "email")
+    @Email
+    @Size(max = 20, min = 10)
     public String getEmail() {
         return email;
     }
@@ -80,6 +87,17 @@ public class UsersEntity {
         this.password = password;
     }
 
+
+    @Basic
+    @Column(name = "isenable")
+    public boolean isEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(boolean enable) {
+        isEnable = enable;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,7 +111,6 @@ public class UsersEntity {
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
-
         return true;
     }
 

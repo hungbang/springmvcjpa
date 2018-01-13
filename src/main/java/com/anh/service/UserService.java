@@ -4,4 +4,5 @@ import com.anh.entity.UsersEntity;
 
 public interface UserService {
     public void saveCustomer(UsersEntity user);
+    public UsersEntity findById(int id);
 }

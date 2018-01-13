@@ -19,10 +19,10 @@
 
         <div class="main-agileinfo">
             <div class="agileits-top">
-                <form action="https://p.w3layouts.com/demos_new/template_demo/18-07-2017/awesome_register_form-demo_Free/1976681312/web/index.html#" method="post">
+                <form action="/register" method="post">
                     <i class="fa fa-user-o" aria-hidden="true"></i>
                     <%--<input class="text" type="text" name="Username" placeholder="Username" required="">--%>
-                    <input class="text email" type="email" name="userName" placeholder="Email" required="">
+                    <input class="text email" type="text" name="userName" placeholder="Email" required="">
                     <input class="text" type="password" name="passWord" placeholder="Password" required="">
                     <%--<input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" required="">--%>
 

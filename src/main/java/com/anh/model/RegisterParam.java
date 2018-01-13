@@ -1,5 +1,9 @@
 package com.anh.model;
 
+import org.hibernate.validator.constraints.Email;
+
+import javax.validation.constraints.Size;
+
 public class RegisterParam {
     private String userName;
     private String passWord;
