@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HelloController {
 
-
     @Autowired
     private UserService userService;
 

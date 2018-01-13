@@ -15,6 +15,11 @@ public class Users {
     private String name;
     private String password;
 
+    public Users(String username, String password) {
+        this.email = username;
+        this.password = password;
+    }
+
     @Id
     @Column(name = "id")
     public int getId() {
