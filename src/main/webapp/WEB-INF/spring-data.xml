@@ -9,19 +9,19 @@
         http://www.springframework.org/schema/data/jpa
         http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <jpa:repositories base-package="com.example.repository"/>
+    <jpa:repositories base-package="com.nhat.repository"/>
 
     <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/spring-hateoas"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/spring?useSSL=true"/>
         <property name="username" value="root"/>
-        <property name="password" value="root"/>
+        <property name="password" value="123456"/>
     </bean>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="datasource"/>
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
-        <property name="packagesToScan" value="com.example.entity"/>
+        <property name="packagesToScan" value="com.nhat.entity"/>
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>

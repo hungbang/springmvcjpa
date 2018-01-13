@@ -8,9 +8,23 @@
 
 
     <import resource="spring-data.xml"/>
-
+    <import resource="spring-security.xml"/>
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:annotation-driven/>
-    <context:component-scan base-package="com.example" />
+    <context:component-scan base-package="com"/>
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="nguyenkhanhnhat0108@gmail.com" />
+        <property name="password" value="niemtin0108" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
 
     <!-- This helps in mapping the logical view names to directly view files under a certain pre-configured directory -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
