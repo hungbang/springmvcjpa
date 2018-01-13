@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersRepository usersRepository;
@@ -36,6 +35,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public int setAcctiveForUser(String email) {
         return usersRepository.setActiveUser(email);
     }

@@ -33,7 +33,7 @@ public class AccountController {
     @RequestMapping(value ="/add",method = RequestMethod.POST)
     public String addUsers(@ModelAttribute("user") UsersEntity usersEntity){
         usersEntity.setActive(false);
-        usersEntity.setLinkConfirm(("http://localhost:8080/account/"+usersEntity.getUsername()));
+        usersEntity.setLinkConfirm(("http://localhost:8080/account/"+usersEntity.getEmail()));
         usersService.save(usersEntity);
         SimpleMailMessage simpleMailMessage=new SimpleMailMessage();
         simpleMailMessage.setTo(usersEntity.getEmail());
