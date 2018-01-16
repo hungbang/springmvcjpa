@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -50,11 +51,11 @@ public class JwtTokenServiceImpl implements JwtTokenService {
             throw new TokenInvalidException("Token is expired");
 
         String userId = claim.get("user-id").toString();
-        Users user = userService.getUserById(Integer.parseInt(userId));
+        Users user = userService.getUserById(userId);
         if(user == null) {
             throw new TokenInvalidException("Token Invalid");
         }
-        user.setAccessToken(token);
+        user.setAccessToken(Base64.getEncoder().encode(token.getBytes()));
         LOGGER.info("user id " + userId);
         return userId;
     }

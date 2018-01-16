@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -28,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Users getUserById(int id) throws UserNotFoundException {
+    public Users getUserById(String id) throws UserNotFoundException {
         if(usersRepository.findOne(id) == null)
             throw new UserNotFoundException("User does not exists.");
        return usersRepository.findOne(id);
@@ -50,11 +52,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void confirmRegistration(String token) throws UserNotFoundException, TokenInvalidException, UsernameExistException, ConfirmationException {
         String userId = jwtTokenService.verifyToken(token);
-        Users user = getUserById(Integer.parseInt(userId));
+        Users user = getUserById(userId);
         if(user == null) {
             throw new TokenInvalidException("Token Invalid");
         }
-        user.setAccessToken(token);
+        user.setAccessToken(Base64.getEncoder().encode(token.getBytes()));
         updateUser(user);
     }
 

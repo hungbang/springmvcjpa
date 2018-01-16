@@ -8,7 +8,7 @@ import com.example.exception.UsernameExistException;
 import com.example.model.RegisterTemp;
 
 public interface UserService {
-    Users getUserById(int id) throws UserNotFoundException;
+    Users getUserById(String id) throws UserNotFoundException;
     void updateUser(Users user) throws UsernameExistException;
     void register(Users user) throws UsernameExistException, ConfirmationException;
     void confirmRegistration(String token) throws UserNotFoundException, TokenInvalidException, UsernameExistException, ConfirmationException;

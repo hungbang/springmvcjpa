@@ -21,7 +21,7 @@ public class HelloController {
     }
 
     @RequestMapping("/users/{id}")
-    public ModelAndView getUserById(@PathVariable("id") Integer id) throws UserNotFoundException {
+    public ModelAndView getUserById(@PathVariable("id") String id) throws UserNotFoundException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", userService.getUserById(id));
         modelAndView.setViewName("user");
