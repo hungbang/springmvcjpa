@@ -1,6 +1,8 @@
 package com.example.service;
 
 import com.example.entity.Users;
+import com.example.exception.ConfirmationException;
+import com.example.exception.TokenInvalidException;
 import com.example.exception.UserNotFoundException;
 import com.example.exception.UsernameExistException;
 import com.example.model.RegisterTemp;
@@ -18,6 +20,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private JwtTokenService jwtTokenService;
+
 
     @Override
     public Users getUserById(int id) throws UserNotFoundException {
@@ -27,16 +35,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(RegisterTemp tempUser) throws UsernameExistException {
-        tempUser.setPassword(encoder.encode(tempUser.getPassword()));
-        Users user = new Users(tempUser.getUsername(), tempUser.getPassword());
-
-        Users users = usersRepository.findUsersByName(tempUser.getUsername());
-        if(users != null)
-            throw new UsernameExistException("User is exist.");
-        user.setAccessToken("");
-        user.setCreated("");
-        user.setName("");
+    public void updateUser(Users curUser) throws UsernameExistException {
+        Users user = usersRepository.findByEmail(curUser.getEmail());
+        user.setAccessToken(curUser.getAccessToken());
         usersRepository.save(user);
     }
+
+    @Override
+    public void register(Users user) {
+        saveUser(user);
+        emailService.sendMailConfirmation(user);
+    }
+
+    @Override
+    public void confirmRegistration(String token) throws UserNotFoundException, TokenInvalidException, UsernameExistException, ConfirmationException {
+        String userId = jwtTokenService.verifyToken(token);
+        Users user = getUserById(Integer.parseInt(userId));
+        if(user == null) {
+            throw new TokenInvalidException("Token Invalid");
+        }
+        user.setAccessToken(token);
+        updateUser(user);
+    }
+
+    @Override
+    public void saveUser(Users curUser) {
+        curUser.setPassword(encoder.encode(curUser.getPassword()));
+        usersRepository.save(curUser);
+    }
+
+
 }

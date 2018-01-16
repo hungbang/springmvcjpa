@@ -1,5 +1,7 @@
 package com.example.service;
 
+import com.example.entity.Users;
+
 public interface EmailService {
-    void sendSimpleMessage(String to, String subject, String text);
+    void sendMailConfirmation(Users user);
 }

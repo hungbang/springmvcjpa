@@ -15,13 +15,15 @@ public class Users {
     private String name;
     private String password;
 
+    public Users() {}
+
     public Users(String username, String password) {
         this.email = username;
         this.password = password;
     }
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     public int getId() {
         return id;
     }

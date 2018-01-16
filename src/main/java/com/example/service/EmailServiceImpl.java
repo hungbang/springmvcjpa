@@ -1,5 +1,7 @@
 package com.example.service;
 
+import com.example.entity.Users;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
@@ -9,12 +11,15 @@ import java.util.Properties;
 @Service
 public class EmailServiceImpl implements EmailService {
 
+    @Autowired
+    private JwtTokenService jwtTokenService;
+
     public JavaMailSenderImpl getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("ReturnZeroZ1@gmail.");
+        mailSender.setUsername("ReturnZeroZ1@gmail.com");
         mailSender.setPassword("Blackcat1");
 
         Properties props = mailSender.getJavaMailProperties();
@@ -25,12 +30,19 @@ public class EmailServiceImpl implements EmailService {
 
         return mailSender;
     }
-    @Override
+
     public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setText(text);
         message.setSubject(subject);
         getJavaMailSender().send(message);
+    }
+
+    @Override
+    public void sendMailConfirmation(Users user) {
+        String token = jwtTokenService.getToken(user);
+        String link = "http://localhosT:8080/confirm?token=" + token;
+        sendSimpleMessage(user.getEmail(),"Register Confirmation", link);
     }
 }
